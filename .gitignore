@@ -30,3 +30,6 @@ Test*.xml
 
 Index.dat
 Storage.dat
+
+*.lock.json
+artifacts

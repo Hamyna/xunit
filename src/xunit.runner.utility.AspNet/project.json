@@ -1,22 +1,21 @@
 {
+    "version": "2.0.0-aspnet-*",
     "frameworks": {
         "aspnet50": {
             "frameworkAssemblies": {
                 "System.Collections": "",
                 "System.Reflection": "",
-                "System.Runtime": "",
-                "System.Web": "",
-                "System.XML": ""
+                "System.Runtime": ""
             }
         },
         "aspnetcore50": {
             "dependencies": {
-                "System.Diagnostics.Tools": "4.0.0-beta-22416",
-                "System.IO.FileSystem": "4.0.0-beta-22416",
-                "System.Linq": "4.0.0-beta-22416",
-                "System.Reflection": "4.0.10-beta-22416",
-                "System.Runtime.Extensions": "4.0.10-beta-22416",
-                "System.Threading": "4.0.0-beta-22416"
+                "System.Diagnostics.Tools": "4.0.0-beta-*",
+                "System.IO.FileSystem": "4.0.0-beta-*",
+                "System.Linq": "4.0.0-beta-*",
+                "System.Reflection": "4.0.10-beta-*",
+                "System.Runtime.Extensions": "4.0.10-beta-*",
+                "System.Threading": "4.0.0-beta-*"
             }
         }
     },
@@ -50,6 +49,6 @@
         "../messages/**/*.cs"
     ],
     "dependencies": {
-        "xunit.abstractions": ""
+        "xunit.abstractions": "2.0.0-rc3-*"
     }
 }

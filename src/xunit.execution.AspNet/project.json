@@ -1,28 +1,33 @@
 {
+    "version": "2.0.0-aspnet-*",
     "frameworks": {
         "aspnet50": {
             "frameworkAssemblies": {
                 "System.Collections": "",
+                "System.Diagnostics.Debug": "",
+                "System.Globalization": "",
+                "System.Linq": "",
                 "System.Reflection": "",
+                "System.Reflection.Extensions": "",
                 "System.Runtime": "",
+                "System.Runtime.Extensions": "",
                 "System.Threading.Tasks": ""
             }
         },
         "aspnetcore50": {
             "dependencies": {
-                "System.Collections.Concurrent": "4.0.0-beta-22416",
-                "System.Diagnostics.Debug": "4.0.10-beta-22416",
-                "System.Diagnostics.Tools": "4.0.0-beta-22416",
-                "System.Globalization": "4.0.10-beta-22416",
-                "System.Linq": "4.0.0-beta-22416",
-                "System.Reflection": "4.0.10-beta-22416",
-                "System.Reflection.Extensions": "4.0.0-beta-22416",
-                "System.Runtime.Extensions": "4.0.10-beta-22416",
-                "System.Security.Cryptography.Hashing.Algorithms": "4.0.0-beta-22416",
-                "System.Threading": "4.0.0-beta-22416",
-                "System.Threading.ExecutionContext": "4.0.0-beta-22416",
-                "System.Threading.Thread": "4.0.0-beta-22416",
-                "System.Threading.ThreadPool": "4.0.10-beta-22416"
+                "System.Collections.Concurrent": "4.0.10-beta-*",
+                "System.Diagnostics.Debug": "4.0.10-beta-*",
+                "System.Diagnostics.Tools": "4.0.0-beta-*",
+                "System.Globalization": "4.0.10-beta-*",
+                "System.Linq": "4.0.0-beta-*",
+                "System.Reflection": "4.0.10-beta-*",
+                "System.Reflection.Extensions": "4.0.0-beta-*",
+                "System.Runtime.Extensions": "4.0.10-beta-*",
+                "System.Security.Cryptography.Hashing.Algorithms": "4.0.0-beta-*",
+                "System.Threading": "4.0.10-beta-*",
+                "System.Threading.Thread": "4.0.0-beta-*",
+                "System.Threading.ThreadPool": "4.0.10-beta-*"
             }
         }
     },
@@ -55,7 +60,7 @@
         "../messages/**/*.cs"
     ],
     "dependencies": {
-        "xunit.abstractions": "",
-        "xunit.core": ""
+        "xunit.abstractions": "2.0.0-rc3-*",
+        "xunit.extensibility.core": "2.0.0-rc3-*"
     }
 }
