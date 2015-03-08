@@ -1,14 +1,14 @@
-{
+﻿{
     "version": "2.0.0-aspnet-*",
     "frameworks": {
-        "aspnet50": {
+        "dnx451": {
             "frameworkAssemblies": {
                 "System.Collections": "",
                 "System.Reflection": "",
                 "System.Runtime": ""
             }
         },
-        "aspnetcore50": {
+        "dnxcore50": {
             "dependencies": {
                 "System.Diagnostics.Tools": "4.0.0-beta-*",
                 "System.IO.FileSystem": "4.0.0-beta-*",

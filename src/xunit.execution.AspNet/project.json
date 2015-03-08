@@ -1,7 +1,7 @@
-{
+﻿{
     "version": "2.0.0-aspnet-*",
     "frameworks": {
-        "aspnet50": {
+        "dnx451": {
             "frameworkAssemblies": {
                 "System.Collections": "",
                 "System.Diagnostics.Debug": "",
@@ -14,7 +14,7 @@
                 "System.Threading.Tasks": ""
             }
         },
-        "aspnetcore50": {
+        "dnxcore50": {
             "dependencies": {
                 "System.Collections.Concurrent": "4.0.10-beta-*",
                 "System.Diagnostics.Debug": "4.0.10-beta-*",
