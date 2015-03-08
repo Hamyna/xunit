@@ -17,7 +17,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)</SolutionDir>
     <NuGetExePath Condition=" '$(NuGetExePath)' == '' ">$(SolutionDir)\.nuget\nuget.exe</NuGetExePath>
     <RequestedVerbosity Condition=" '$(RequestedVerbosity)' == '' ">normal</RequestedVerbosity>
-    <KvmPath Condition="'$(KvmPath)' == ''">$(SolutionDir)\tools\kvm.cmd</KvmPath>
+    <DnvmPath Condition="'$(DnvmPath)' == ''">$(SolutionDir)\tools\dnvm.cmd</DnvmPath>
   </PropertyGroup>
   <ItemGroup>
     <NuspecFiles Include="**\*.nuspec" />
