@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 pushd %~dp0\..
 
 rem Have to bust the cache, because of broken packages from the CLR team
