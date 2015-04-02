@@ -22,7 +22,7 @@
     "compilationOptions": {
         "define": [ "NET", "NO_APPDOMAIN", "NEW_REFLECTION" ]
     },
-    "code": [
+    "compile": [
         "../common/AssemblyExtensions.cs",
         "../common/AssemblyHelper.cs",
         "../common/AssemblyHelper_WPA81.cs",

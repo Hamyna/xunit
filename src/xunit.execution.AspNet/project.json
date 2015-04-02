@@ -34,7 +34,7 @@
     "compilationOptions": {
         "define": [ "XUNIT_CORE_DLL", "NET45", "NO_APPDOMAIN", "NEW_REFLECTION" ]
     },
-    "code": [
+    "compile": [
         "../common/AssemblyExtensions.cs",
         "../common/DictionaryExtensions.cs",
         "../common/ExceptionExtensions.cs",
