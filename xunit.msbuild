@@ -14,13 +14,14 @@
     <ParallelizeTests Condition="'$(ParallelizeTests)' == ''">true</ParallelizeTests>
     <MaxParallelThreads Condition="'$(MaxParallelThreads)' == ''">0</MaxParallelThreads>
     <TrackFileAccess>false</TrackFileAccess>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)</SolutionDir>
-    <NuGetExePath Condition=" '$(NuGetExePath)' == '' ">$(SolutionDir)\.nuget\nuget.exe</NuGetExePath>
+    <SolutionDir Condition="'$(SolutionDir)' == '' Or '$(SolutionDir)' == '*Undefined*'">$(MSBuildProjectDirectory)</SolutionDir>
+    <NuGetExePath Condition="'$(NuGetExePath)' == ''">$(SolutionDir)\.nuget\nuget.exe</NuGetExePath>
     <RequestedVerbosity Condition=" '$(RequestedVerbosity)' == '' ">normal</RequestedVerbosity>
     <DnvmPath Condition="'$(DnvmPath)' == ''">$(SolutionDir)\tools\dnvm.cmd</DnvmPath>
+    <MyGetUrl Condition="'$(MyGetUrl)' == ''">https://www.myget.org/F/xunit/api/v2/package</MyGetUrl>
   </PropertyGroup>
   <ItemGroup>
-    <NuspecFiles Include="**\*.nuspec" />
+    <NuspecFiles Include="src\*.nuspec" />
   </ItemGroup>
   <ItemGroup Condition=" '$(PackageSources)' == '' ">
     <PackageSource Include="https://nuget.org/api/v2/" />
@@ -90,7 +91,7 @@
         Files="src\xunit.console\xunit.console.x86.csproj" />
 
     <!-- Build aspnet projects -->
-    <Exec Command="cmd /c tools\build-aspnet.cmd $(Configuration)" />
+    <Exec Command="powershell -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned tools\build-aspnet.ps1 $(Configuration)" />
   </Target>
 
   <Target Name="_Test32" DependsOnTargets="Build">
@@ -114,7 +115,7 @@
         Files='src\common\GlobalAssemblyInfo.cs'
         Condition=" '$(BuildAssemblyVersion)' != '' "/>
     <RegexReplace
-        Pattern='99\.99\.99'
+        Pattern='99\.99\.99-dev'
         Replacement='$(BuildSemanticVersion)'
         Files='@(NuspecFiles)'
         Condition=" '$(BuildSemanticVersion)' != '' "/>
@@ -142,11 +143,11 @@
     <Zip Files="@(Binaries)" ZipFileName="binaries.zip" StripPath="true" />
   </Target>
 
-  <Target Name="PushMyGet" DependsOnTargets="_DownloadNuGet" Condition=" '$(GitBranch)' == 'master' Or '$(GitBranch)' == 'refs/heads/master' ">
+  <Target Name="PushMyGet" DependsOnTargets="_DownloadNuGet" Condition=" '$(ForcePushMyGet)' == 'true' Or '$(GitBranch)' == 'master' Or '$(GitBranch)' == 'refs/heads/master' ">
     <ItemGroup>
       <NupkgFiles Include="*.nupkg" />
     </ItemGroup>
-    <Exec Command='"$(NuGetExePath)" push %(NupkgFiles.Identity) -NonInteractive -Source https://www.myget.org/F/xunit/api/v2/package' />
+    <Exec Command='"$(NuGetExePath)" push %(NupkgFiles.Identity) -NonInteractive -Source $(MyGetUrl)' />
   </Target>
 
   <Target Name="PushNuGet" DependsOnTargets="_DownloadNuGet">

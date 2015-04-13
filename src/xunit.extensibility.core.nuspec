@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="2.8.3">
     <id>xunit.extensibility.core</id>
-    <version>99.99.99</version>
+    <version>99.99.99-dev</version>
     <title>xUnit.net [Extensibility: Core]</title>
-    <authors>James Newkirk, Brad Wilson</authors>
+    <authors>James Newkirk,Brad Wilson</authors>
     <description>
       Includes xunit.core.dll for extensibility purposes.
       Supported platforms: Desktop .NET 4.5+, ASP.NET 5+, Modern Windows 8, Windows Phone 8 (Silverlight), Universal (Windows Phone 8.1+, Windows 8.1+), MonoTouch, MonoAndroid, Xamarin iOS Universal, Portable Libraries (supporting Profile259).
@@ -18,8 +18,7 @@
       <reference file="xunit.core.dll" />
     </references>
     <dependencies>
-      <!-- Upon RTM: <dependency id="xunit.abstractions" version="[2.0.0,2.1.0)" /> -->
-      <dependency id="xunit.abstractions" version="[99.99.99]" />
+      <dependency id="xunit.abstractions" version="[2.0.0]" />
     </dependencies>
   </metadata>
   <files>

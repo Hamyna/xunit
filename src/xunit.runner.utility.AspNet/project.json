@@ -20,7 +20,8 @@
         }
     },
     "compilationOptions": {
-        "define": [ "NET", "NO_APPDOMAIN", "NEW_REFLECTION" ]
+        "define": [ "NET", "NO_APPDOMAIN", "NEW_REFLECTION" ],
+        "warningsAsErrors": true
     },
     "compile": [
         "../common/AssemblyExtensions.cs",
@@ -49,6 +50,6 @@
         "../messages/**/*.cs"
     ],
     "dependencies": {
-        "xunit.abstractions": "2.0.0-rc3-*"
+        "xunit.abstractions": "[2.0.0]"
     }
 }

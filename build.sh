@@ -1,39 +1,73 @@
 #!/bin/bash
 
-if test `uname` = Darwin; then
-    cachedir=~/Library/Caches/KBuild
-else
-    if [ -z $XDG_DATA_HOME ]; then
-        cachedir=$HOME/.local/share
-    else
-        cachedir=$XDG_DATA_HOME;
-    fi
-fi
-mkdir -p $cachedir
-
-url=https://www.nuget.org/nuget.exe
-
-if test ! -f $cachedir/nuget.exe; then
-    wget -O $cachedir/nuget.exe $url 2>/dev/null || curl -o $cachedir/nuget.exe --location $url /dev/null
+if ! [ -x "$(command -v mono)" ]; then
+  echo >&2 "Could not find 'mono' on the path."
+  exit 1
 fi
 
-if test ! -e .nuget; then
-    mkdir .nuget
-    cp $cachedir/nuget.exe .nuget/nuget.exe
+if ! [ -x "$(command -v curl)" ]; then
+  echo >&2 "Could not find 'curl' on the path."
+  exit 1
 fi
 
-if test ! -d packages/KoreBuild; then
-    mono .nuget/nuget.exe install KoreBuild -ExcludeVersion -o packages -nocache -pre
-    mono .nuget/nuget.exe install Sake -version 0.2 -o packages -ExcludeVersion
+if ! [ -d .nuget ]; then
+  mkdir .nuget
 fi
 
-if ! type dnvm > /dev/null 2>&1; then
-    source packages/KoreBuild/build/dnvm.sh
+if ! [ -x .nuget/nuget.exe ]; then
+  echo ""
+  echo "Downloading nuget.exe..."
+  echo ""
+
+  curl https://api.nuget.org/downloads/nuget.exe -o .nuget/nuget.exe -L
+  if [ $? -ne 0 ]; then
+    echo >&2 ""
+    echo >&2 "The download of nuget.exe has failed."
+    exit 1
+  fi
+
+  chmod 755 .nuget/nuget.exe
 fi
 
-if ! type dnx > /dev/null 2>&1; then
-    dnvm upgrade
+echo ""
+echo "Restoring NuGet packages..."
+echo ""
+
+mono .nuget/nuget.exe restore xunit.xbuild.sln
+if [ $? -ne 0 ]; then
+  echo >&2 "NuGet package restore has failed."
+  exit 1
 fi
 
-mono packages/Sake/tools/Sake.exe -I packages/KoreBuild/build -f makefile.shade "$@"
+echo ""
+echo "Building..."
+echo ""
 
+xbuild xunit.xbuild.sln /property:Configuration=Release
+if [ $? -ne 0 ]; then
+  echo >&2 ""
+  echo >&2 "The build has failed."
+  exit 1
+fi
+
+echo ""
+echo "Running xUnit v1 tests..."
+echo ""
+
+mono src/xunit.console/bin/Release/xunit.console.exe test/test.xunit1/bin/Release/test.xunit1.dll
+if [ $? -ne 0 ]; then
+  echo >&2 ""
+  echo >&2 "The xUnit v1 tests have failed."
+  exit 1
+fi
+
+echo ""
+echo "Running xUnit v2 tests..."
+echo ""
+
+mono src/xunit.console/bin/Release/xunit.console.exe test/test.xunit.assert/bin/Release/test.xunit.assert.dll test/test.xunit.console/bin/Release/test.xunit.console.dll test/test.xunit.execution/bin/Release/test.xunit.execution.dll test/test.xunit.runner.tdnet/bin/Release/test.xunit.runner.tdnet.dll test/test.xunit.runner.utility/bin/Release/test.xunit.runner.utility.dll -parallel all
+if [ $? -ne 0 ]; then
+  echo >&2 ""
+  echo >&2 "The xUnit v2 tests have failed."
+  exit 1
+fi

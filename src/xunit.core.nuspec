@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="2.8.3">
     <id>xunit.core</id>
-    <version>99.99.99</version>
+    <version>99.99.99-dev</version>
     <title>xUnit.net [Core Unit Testing Framework]</title>
-    <authors>James Newkirk, Brad Wilson</authors>
+    <authors>James Newkirk,Brad Wilson</authors>
     <description>
       Includes the libraries for writing unit tests with xUnit.net.
       Supported platforms: Desktop .NET 4.5+, ASP.NET 5+, Modern Windows 8, Windows Phone 8 (Silverlight), Universal (Windows Phone 8.1+, Windows 8.1+), MonoTouch, MonoAndroid, Xamarin iOS Universal, Portable Libraries (supporting Profile259).
@@ -16,16 +16,16 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit.extensibility.core" version="[99.99.99]" />
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
       </group>
       <!-- Include execution in ASP.NET 5, because there's no other way to get the DLL referenced -->
       <group targetFramework="aspnet50">
-        <dependency id="xunit.extensibility.core" version="[99.99.99]" />
-        <dependency id="xunit.extensibility.execution" version="[99.99.99]" />
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
+        <dependency id="xunit.extensibility.execution" version="[99.99.99-dev]" />
       </group>
       <group targetFramework="aspnetcore50">
-        <dependency id="xunit.extensibility.core" version="[99.99.99]" />
-        <dependency id="xunit.extensibility.execution" version="[99.99.99]" />
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
+        <dependency id="xunit.extensibility.execution" version="[99.99.99-dev]" />
       </group>
     </dependencies>
   </metadata>
@@ -33,32 +33,38 @@
     <!--
       The platforms here which copy both native and desktop DLLs are done to support the Visual Studio
       runner. It needs both because it does discovery on the desktop, and execution on the device.
-      A no-serialization desktop DLL is also available for Visual Studio to discovery and correctly
-      serialize test cases to be run on devices without native serialization.
     -->
+    <!-- common -->
     <file src="xunit.execution.desktop\bin\Release\xunit.execution.desktop.dll" target="build\_Desktop\" />
 
+    <!-- monoandroid -->
     <file src="xunit.core\build\xunit.core.props"                                       target="build\monoandroid\" />
     <file src="xunit.execution.MonoAndroid\bin\Release\xunit.execution.MonoAndroid.dll" target="build\monoandroid\" />
 
+    <!-- monotouch -->
     <file src="xunit.core\build\xunit.core.props"                                          target="build\monotouch\" />
     <file src="xunit.execution.MonoTouch\bin\iPhone\Release\xunit.execution.MonoTouch.dll" target="build\monotouch\" />
 
+    <!-- portable -->
     <file src="xunit.core\build\xunit.core.WithDesktop.props" target="build\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" />
 
+    <!-- universal -->
     <file src="xunit.core\build\xunit.core.WithDesktop.props"                       target="build\portable-win81+wpa81\xunit.core.props" />
     <file src="xunit.core\build\xunit.core.universal.targets"                       target="build\portable-win81+wpa81\xunit.core.targets" />
     <file src="xunit.execution.universal\bin\Release\xunit.execution.universal.dll" target="build\portable-win81+wpa81\" />
     <file src="xunit.execution.universal\bin\Release\xunit.execution.universal.pri" target="build\portable-win81+wpa81\" />
 
+    <!-- win8 -->
     <file src="xunit.core\build\xunit.core.WithDesktop.props"             target="build\win8\xunit.core.props" />
     <file src="xunit.core\build\xunit.core.win8.targets"                  target="build\win8\xunit.core.targets" />
     <file src="xunit.execution.win8\bin\Release\xunit.execution.win8.dll" target="build\win8\" />
 
+    <!-- wp8 -->
     <file src="xunit.core\build\xunit.core.props"                       target="build\wp8\" />
     <file src="xunit.core\build\xunit.core.wp8.targets"                 target="build\wp8\xunit.core.targets" />
     <file src="xunit.execution.wp8\bin\Release\xunit.execution.wp8.dll" target="build\wp8\" />
 
+    <!-- Xamarin.iOS -->
     <file src="xunit.core\build\xunit.core.props"                                                  target="build\Xamarin.iOS\" />
     <file src="xunit.execution.iOS-Universal\bin\iPhone\Release\xunit.execution.iOS-Universal.dll" target="build\Xamarin.iOS\" />
   </files>

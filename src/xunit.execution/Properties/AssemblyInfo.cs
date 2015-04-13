@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Reflection;
+using Xunit.Sdk;
 
 #if ANDROID
 [assembly: AssemblyTitle("xUnit.net Execution (MonoAndroid)")]
@@ -7,7 +8,9 @@ using System.Reflection;
 [assembly: AssemblyTitle("xUnit.net Execution (MonoTouch)")]
 #elif __IOS__
 [assembly: AssemblyTitle("xUnit.net Execution (iOS Universal)")]
-#elif DNX451 || DNXCORE50
+#elif DNXCORE50
+[assembly: AssemblyTitle("xUnit.net Execution (ASP.NET Core)")]
+#elif DNX451
 [assembly: AssemblyTitle("xUnit.net Execution (ASP.NET)")]
 #elif WINDOWS_PHONE_APP
 [assembly: AssemblyTitle("xUnit.net Execution (Universal [WPA81, WIN81])")]
@@ -20,3 +23,4 @@ using System.Reflection;
 #endif
 
 [assembly: CLSCompliant(true)]
+[assembly: PlatformSpecificAssembly]

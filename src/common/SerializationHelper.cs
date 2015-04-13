@@ -150,9 +150,8 @@ namespace Xunit.Sdk
         /// <returns>The instance of the <see cref="Type"/>, if available; <c>null</c>, otherwise.</returns>
         public static Type GetType(string assemblyName, string typeName)
         {
-            // Take a generic reference to xunit.execution.dll and swap it out for the current execution library
-            if (String.Equals(assemblyName, "xunit.execution", StringComparison.OrdinalIgnoreCase))
-                assemblyName = ExecutionHelper.AssemblyName;
+            if (assemblyName.EndsWith(ExecutionHelper.SubstitutionToken))
+                assemblyName = assemblyName.Substring(0, assemblyName.Length - ExecutionHelper.SubstitutionToken.Length + 1) + ExecutionHelper.PlatformSpecificAssemblySuffix;
 
 #if WINDOWS_PHONE_APP || WINDOWS_PHONE || DNXCORE50
             Assembly assembly = null;
@@ -160,7 +159,7 @@ namespace Xunit.Sdk
             {
                 // Make sure we only use the short form for WPA81
                 var an = new AssemblyName(assemblyName);
-                assembly = Assembly.Load(new AssemblyName { Name = an.Name });
+                assembly = Assembly.Load(new AssemblyName { Name = an.Name, Version = new Version(0, 0) });
 
             }
             catch { }
@@ -202,7 +201,7 @@ namespace Xunit.Sdk
                 type = type.GetElementType();
             }
 
-            if (type.IsGenericType())
+            if (type.IsGenericType() && !type.IsGenericTypeDefinition())
             {
                 var typeDefinition = type.GetGenericTypeDefinition();
                 var innerTypes = type.GetGenericArguments().Select(t => String.Format("[{0}]", GetTypeNameForSerialization(t))).ToArray();
@@ -220,15 +219,16 @@ namespace Xunit.Sdk
             if (String.Equals(assemblyName, "mscorlib", StringComparison.OrdinalIgnoreCase))
                 return typeName;
 
-            if (String.Equals(assemblyName, ExecutionHelper.AssemblyName, StringComparison.OrdinalIgnoreCase))
-                assemblyName = "xunit.execution";
+            // If this is a platform specific assembly, strip off the trailing . and name and replace it with the token
+            if (type.GetAssembly().GetCustomAttributes().FirstOrDefault(a => a != null && a.GetType().FullName == "Xunit.Sdk.PlatformSpecificAssemblyAttribute") != null)
+                assemblyName = assemblyName.Substring(0, assemblyName.LastIndexOf('.')) + ExecutionHelper.SubstitutionToken;
 
             return String.Format("{0}, {1}", typeName, assemblyName);
         }
 
         private static IList<string> SplitAtOuterCommas(string value)
         {
-            List<string> results = new List<string>();
+            var results = new List<string>();
 
             var startIndex = 0;
             var endIndex = 0;

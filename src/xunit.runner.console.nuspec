@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata minClientVersion="2.8.3">
-    <id>xunit.runners</id>
-    <version>99.99.99</version>
-    <title>xUnit.net [Runners]</title>
-    <authors>James Newkirk, Brad Wilson</authors>
+  <metadata minClientVersion="2.8.1">
+    <id>xunit.runner.console</id>
+    <version>99.99.99-dev</version>
+    <title>xUnit.net [Runner: Console]</title>
+    <authors>James Newkirk,Brad Wilson</authors>
     <description>
-      Runners for the xUnit.net framework, including Console and MSBuild.
+      Console runner for the xUnit.net framework.
       Supported platforms: Desktop .NET 4.5+.
     </description>
     <language>en-US</language>
@@ -16,18 +16,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
   </metadata>
   <files>
-    <!-- Core -->
-    <file src="xunit.abstractions.pcl\bin\Release\xunit.abstractions.dll"                 target="tools\" />
-    <file src="xunit.runner.utility.desktop\bin\Release\xunit.runner.utility.desktop.dll" target="tools\" />
-    
-    <!-- Console runner -->
     <file src="xunit.console\*.xslt"                                       target="tools\" />
+    <file src="xunit.console\bin\Release\xunit.abstractions.dll"           target="tools\" />
+    <file src="xunit.console\bin\Release\xunit.runner.utility.desktop.dll" target="tools\" />
     <file src="xunit.console\bin\Release\xunit.console.exe"                target="tools\" />
     <file src="xunit.console\bin\Release\xunit.console.exe.config"         target="tools\" />
     <file src="xunit.console\bin\Release.x86\xunit.console.x86.exe"        target="tools\" />
     <file src="xunit.console\bin\Release.x86\xunit.console.x86.exe.config" target="tools\" />
-    
-    <!-- MSBuild runner -->
-    <file src="xunit.runner.msbuild\bin\Release\xunit.runner.msbuild.dll" target="tools\" />
   </files>
 </package>

@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="2.8.3">
     <id>xunit.extensibility.execution</id>
-    <version>99.99.99</version>
+    <version>99.99.99-dev</version>
     <title>xUnit.net [Extensibility: Execution]</title>
-    <authors>James Newkirk, Brad Wilson</authors>
+    <authors>James Newkirk,Brad Wilson</authors>
     <description>
       Includes xunit.execution.*.dll for extensibility purposes.
       Supported platforms: Desktop .NET 4.5+, ASP.NET 5+, Modern Windows 8, Windows Phone 8 (Silverlight), Universal (Windows Phone 8.1+, Windows 8.1+), MonoTouch, MonoAndroid, Xamarin iOS Universal.
@@ -16,7 +16,25 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit.extensibility.core" version="[99.99.99]" />
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
+      </group>
+      <group targetFramework="aspnet50">
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
+      </group>
+      <group targetFramework="aspnetcore50">
+        <dependency id="xunit.extensibility.core" version="[99.99.99-dev]" />
+        <dependency id="System.Collections.Concurrent" version="4.0.0-beta-22605" />
+        <dependency id="System.Diagnostics.Debug" version="4.0.10-beta-22605" />
+        <dependency id="System.Diagnostics.Tools" version="4.0.0-beta-22605" />
+        <dependency id="System.Globalization" version="4.0.10-beta-22605" />
+        <dependency id="System.Linq" version="4.0.0-beta-22605" />
+        <dependency id="System.Reflection" version="4.0.10-beta-22605" />
+        <dependency id="System.Reflection.Extensions" version="4.0.0-beta-22605" />
+        <dependency id="System.Runtime.Extensions" version="4.0.10-beta-22605" />
+        <dependency id="System.Security.Cryptography.Hashing.Algorithms" version="4.0.0-beta-22605" />
+        <dependency id="System.Threading" version="4.0.10-beta-22605" />
+        <dependency id="System.Threading.Thread" version="4.0.0-beta-22605" />
+        <dependency id="System.Threading.ThreadPool" version="4.0.10-beta-22605" />
       </group>
     </dependencies>
     <frameworkAssemblies>
@@ -24,6 +42,7 @@
       <frameworkAssembly assemblyName="mscorlib" targetFramework="aspnet50" />
       <frameworkAssembly assemblyName="System" targetFramework="aspnet50" />
       <frameworkAssembly assemblyName="System.Core" targetFramework="aspnet50" />
+      <frameworkAssembly assemblyName="System.Collections" targetFramework="aspnet50" />
       <frameworkAssembly assemblyName="System.Reflection" targetFramework="aspnet50" />
       <frameworkAssembly assemblyName="System.Runtime" targetFramework="aspnet50" />
       <frameworkAssembly assemblyName="System.Threading.Tasks" targetFramework="aspnet50" />

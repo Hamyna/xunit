@@ -36,10 +36,13 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TestDriven.Framework">
       <HintPath>..\..\tools\TestDriven.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -106,10 +109,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\xunit.abstractions.pcl\xunit.abstractions.pcl.csproj">
-      <Project>{77743589-f177-4007-97b8-50b82a1c7044}</Project>
-      <Name>xunit.abstractions.pcl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\xunit.execution.desktop\xunit.execution.desktop.csproj">
       <Project>{09ef9917-4b00-4646-8c3f-96efacc8bf51}</Project>
       <Name>xunit.execution.desktop</Name>
@@ -139,6 +138,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="..\..\packages\xunit.1.9.2\lib\net20\xunit.dll;..\..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
